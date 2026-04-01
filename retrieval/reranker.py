@@ -12,10 +12,6 @@ def rerank(query, documents, top_k=5):
 
     scores = model.predict(pairs)
 
-    ranked = sorted(
-        zip(documents, scores),
-        key=lambda x: x[1],
-        reverse=True
-    )
+    ranked = sorted(zip(documents, scores), key=lambda x: x[1], reverse=True)
 
     return [doc for doc, _ in ranked[:top_k]]

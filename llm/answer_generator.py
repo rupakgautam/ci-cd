@@ -26,8 +26,7 @@ Question:
 """
 
     response = ollama.chat(
-        model="llama3",
-        messages=[{"role": "user", "content": prompt}]
+        model="llama3", messages=[{"role": "user", "content": prompt}]
     )
 
     raw = response["message"]["content"]
@@ -56,14 +55,10 @@ def parse_response(raw_text):
             return {
                 "answer": data["answer"],
                 "citations": data.get("citations", []),
-                "raw": raw_text
+                "raw": raw_text,
             }
     except (json.JSONDecodeError, KeyError):
         pass
 
     # Fallback: return raw text with no structured citations
-    return {
-        "answer": raw_text,
-        "citations": [],
-        "raw": raw_text
-    }
+    return {"answer": raw_text, "citations": [], "raw": raw_text}

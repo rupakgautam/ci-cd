@@ -11,17 +11,22 @@ st.set_page_config(
     layout="centered",
 )
 
-st.markdown("""
+st.markdown(
+    """
 <style>
     .stApp { background-color: #f0f4f9; }
     .block-container { max-width: 760px; padding-top: 2rem; }
     #MainMenu, footer, header { visibility: hidden; }
 </style>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True,
+)
 
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown("## 🤖 Rupak RAG Chat Bot")
-st.caption("Ask me anything about your uploaded documents. I will answer with citations.")
+st.caption(
+    "Ask me anything about your uploaded documents. I will answer with citations."
+)
 st.divider()
 
 # ── Session state ─────────────────────────────────────────────────────────────
@@ -36,7 +41,9 @@ if "messages" not in st.session_state:
 
 # ── Render chat history ───────────────────────────────────────────────────────
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"], avatar="🤖" if msg["role"] == "assistant" else "🧑"):
+    with st.chat_message(
+        msg["role"], avatar="🤖" if msg["role"] == "assistant" else "🧑"
+    ):
         st.write(msg["text"])
         if msg.get("citations"):
             with st.expander("📄 Sources", expanded=True):
@@ -53,7 +60,9 @@ user_input = st.chat_input("Enter your message...")
 
 if user_input and user_input.strip():
     # Show user message immediately
-    st.session_state.messages.append({"role": "user", "text": user_input, "citations": []})
+    st.session_state.messages.append(
+        {"role": "user", "text": user_input, "citations": []}
+    )
     with st.chat_message("user", avatar="🧑"):
         st.write(user_input)
 
@@ -88,7 +97,9 @@ if user_input and user_input.strip():
                     if quote:
                         st.caption(f'"{quote[:200]}"')
 
-    st.session_state.messages.append({"role": "assistant", "text": answer, "citations": citations})
+    st.session_state.messages.append(
+        {"role": "assistant", "text": answer, "citations": citations}
+    )
 
 # ── PDF Upload (sidebar) ──────────────────────────────────────────────────────
 with st.sidebar:
@@ -101,7 +112,13 @@ with st.sidebar:
                 try:
                     resp = requests.post(
                         f"{API_URL}/ingest",
-                        files={"file": (uploaded_file.name, uploaded_file.getvalue(), "application/pdf")},
+                        files={
+                            "file": (
+                                uploaded_file.name,
+                                uploaded_file.getvalue(),
+                                "application/pdf",
+                            )
+                        },
                         timeout=120,
                     )
                     if resp.status_code == 200:

@@ -14,7 +14,7 @@ def search(query, top_k=5):
     results = collection.query(
         query_embeddings=[embedding],
         n_results=top_k,
-        include=["documents", "metadatas"]
+        include=["documents", "metadatas"],
     )
 
     docs = results["documents"][0]

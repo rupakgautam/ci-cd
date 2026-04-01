@@ -34,7 +34,7 @@ def run_query(query):
         "answer": result["answer"],
         "citations": result["citations"],
         "retrieved_docs": reranked_docs,
-        "raw_response": result.get("raw", "")
+        "raw_response": result.get("raw", ""),
     }
 
 
@@ -57,7 +57,11 @@ def main():
             quote = cite.get("quote", "")
             print(f"  [{i}] {source}, Page {page}")
             if quote:
-                print(f"      \"{quote[:100]}...\"" if len(quote) > 100 else f"      \"{quote}\"")
+                print(
+                    f'      "{quote[:100]}..."'
+                    if len(quote) > 100
+                    else f'      "{quote}"'
+                )
 
 
 if __name__ == "__main__":
