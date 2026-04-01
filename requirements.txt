@@ -1,0 +1,12 @@
+chromadb
+pypdf
+langchain
+langchain-community
+sentence-transformers
+ollama
+rank-bm25
+tqdm
+fastapi
+uvicorn[standard]
+python-multipart
+streamlit

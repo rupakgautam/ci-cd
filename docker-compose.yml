@@ -1,0 +1,17 @@
+services:
+  rag-api:
+    build: .
+    container_name: rag-api
+    ports:
+      - "8000:8000"
+    volumes:
+      # Persist ChromaDB data between container restarts
+      - ./chroma_db:/app/chroma_db
+      # Mount PDF docs so you can add files without rebuilding
+      - ./data/raw_docs:/app/data/raw_docs
+    environment:
+      # Point Ollama client to the host machine where Ollama is running
+      - OLLAMA_HOST=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

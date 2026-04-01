@@ -1,0 +1,26 @@
+# Ruff linter/formatter configuration
+target-version = "py311"
+
+exclude = [
+    "venv",
+    "__pycache__",
+    ".git",
+]
+
+[lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (import sorting)
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (let formatter handle it)
+    "B008",  # function call in default arg (valid for FastAPI's File/Depends)
+    "B905",  # zip() without strict= (not needed for internal code)
+]
+
+[lint.per-file-ignores]
+"__init__.py" = ["F401"]  # unused imports OK in __init__

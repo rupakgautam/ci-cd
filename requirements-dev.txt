@@ -1,0 +1,5 @@
+# Development & CI dependencies (not needed in production image)
+ruff
+pytest
+httpx
+pip-audit
